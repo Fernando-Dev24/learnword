@@ -1,85 +1,64 @@
-export interface OxfordResponse {
-  metadata: Metadata
-  query: string
-  results: Result[]
-}
-
-export interface Metadata {
-  operation: string
-  provider: string
-  schema: string
-}
-
-export interface Result {
-  id: string
-  language: string
-  lexicalEntries: LexicalEntry[]
-  type: string
+export interface FreeDictionaryAPI {
   word: string
-}
-
-export interface LexicalEntry {
   entries: Entry[]
-  language: string
-  lexicalCategory: LexicalCategory
-  phrases?: Phrase[]
-  text: string
-}
-
-export interface LexicalCategory {
-  id: string
-  text: string
+  source: Source
 }
 
 export interface Entry {
-  etymologies?: string[]
-  inflections?: Inflection[]
-  pronunciations?: Pronunciation[]
+  language: Language
+  partOfSpeech: string
+  pronunciations: Pronunciation[]
+  forms: Form[]
   senses: Sense[]
+  synonyms: string[]
+  antonyms: string[]
 }
 
-export interface Inflection {
-  inflectedForm: string
+export interface Form {
+  word: string
+  tags: string[]
+}
+
+export interface Language {
+  code: string
+  name: string
 }
 
 export interface Pronunciation {
-  audioFile?: string
-  dialects?: string[]
-  phoneticNotation?: string
-  phoneticSpelling?: string
+  type: Type
+  text: string
+  tags: string[]
 }
+
+export type Type = 'ipa'
 
 export interface Sense {
-  definitions?: string[]
-  domainClasses?: Classification[]
-  id: string
-  notes?: Note[]
-  semanticClasses?: Classification[]
-  shortDefinitions?: string[]
-  subsenses?: Sense[]
-  variantForms?: VariantForm[]
-  examples?: Example[]
+  definition: string
+  tags: string[]
+  examples: string[]
+  quotes: Quote[]
+  synonyms: string[]
+  antonyms: string[]
+  translations: Translation[]
+  subsenses: Sense[]
 }
 
-export interface Classification {
-  id: string
+export interface Quote {
   text: string
+  reference: string
 }
 
-export interface Note {
-  text: string
-  type?: string
+export interface Translation {
+  language: Language
+  word: string
 }
 
-export interface VariantForm {
-  text: string
+export interface Source {
+  url: string
+  license: License
 }
 
-export interface Example {
-  text: string
-}
-
-export interface Phrase {
-  id: string
-  text: string
+export interface License {
+  name: string
+  url: string
 }

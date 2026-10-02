@@ -1,0 +1,64 @@
+import { Book } from 'lucide-react'
+import { Button } from './ui/button'
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from './ui/empty'
+
+const TEST_WORDS = [
+  'run',
+  'jump',
+  'swim',
+  'walk',
+  'talk',
+  'listen',
+  'read',
+  'write',
+  'play',
+  'sing',
+]
+
+export const DictionaryEmptyState = () => {
+  return (
+    <div className="space-y-5">
+      <div className="space-y-1">
+        <p className="uppercase tracking-wider text-muted-foreground text-xs">
+          Prueba con
+        </p>
+        <div className="space-x-2">
+          {TEST_WORDS.map((word, index) => (
+            <Button
+              key={index}
+              variant={'secondary'}
+              className="capitalize"
+              size={'xs'}
+            >
+              {word}
+            </Button>
+          ))}
+        </div>
+      </div>
+
+      <Empty className="border border-dashed">
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <Book />
+          </EmptyMedia>
+          <EmptyTitle>Busca cualquier palabra en inglés</EmptyTitle>
+          <EmptyDescription>
+            Verás cada significado según su función en la oración junto con
+            ejemplos en español e inglés.
+          </EmptyDescription>
+        </EmptyHeader>
+        {/* <EmptyContent>
+          <Button variant="outline" size="sm">
+            Upload Files
+          </Button>
+        </EmptyContent> */}
+      </Empty>
+    </div>
+  )
+}

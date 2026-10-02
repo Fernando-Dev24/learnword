@@ -1,12 +1,11 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { ThemeProvider } from '#/components/theme-provider/theme-provider'
 
+import App from '#/pages/app'
 import appCss from '../styles.css?url'
 import '@fontsource-variable/outfit'
-import { ThemeProvider } from '#/components/theme-provider/theme-provider'
-import { Header } from '#/components/header'
-import App from '#/pages/app'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -19,7 +18,9 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'LearnWord - Aprende palabras en inglés',
+        content:
+          'LearnWord - Aprende palabras en inglés de manera divertida y efectiva',
       },
     ],
     links: [
@@ -34,12 +35,12 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="system" storageKey="theme">
           <App>{children}</App>
         </ThemeProvider>
         <TanStackDevtools
