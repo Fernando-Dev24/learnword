@@ -1,8 +1,10 @@
 import type { FreeDictionaryAPI } from '#/lib/schema'
+import { MoveUpRight } from 'lucide-react'
 import { EntryAccordionItem } from './entry-accordion-item'
 import { Accordion } from './ui/accordion'
 import { Badge } from './ui/badge'
 import { Card, CardContent } from './ui/card'
+import { Separator } from './ui/separator'
 
 export const DictionaryResult = ({ data }: { data: FreeDictionaryAPI }) => {
   const phonetic = data.entries[0].pronunciations[0].text
@@ -21,19 +23,36 @@ export const DictionaryResult = ({ data }: { data: FreeDictionaryAPI }) => {
           uso según la parte de la oración
         </p>
 
-        <Card className="bg-neutral-900 shadow-2xl">
+        <Card className="dark:bg-neutral-900 shadow-xl">
           <CardContent>
             <Accordion type="single" collapsible defaultValue={firstEntryValue}>
               {data.entries.map((entry, index) => (
-                <EntryAccordionItem
-                  key={entry.partOfSpeech}
-                  index={index}
-                  entry={entry}
-                />
+                <EntryAccordionItem key={index} index={index} entry={entry} />
               ))}
             </Accordion>
           </CardContent>
         </Card>
+
+        <div>
+          <Separator />
+
+          <p className="text-muted-foreground text-xs inline-flex">
+            Definiciones de
+            <a
+              href="https://freedictionaryapi.com/"
+              target="_blank"
+              className="ml-0.5 underline"
+            >
+              Free Dictionary API
+            </a>
+            <MoveUpRight size={12} /> - Licencia CC BY-SA 4.0
+          </p>
+
+          <p className="text-muted-foreground text-xs">
+            Traducciones de ejemplos generadas automaticamente, pueden cometer
+            errores.
+          </p>
+        </div>
       </article>
     </section>
   )

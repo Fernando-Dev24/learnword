@@ -1,5 +1,4 @@
 import type { Entry } from '#/lib/schema'
-import { Languages } from 'lucide-react'
 import {
   AccordionContent,
   AccordionItem,
@@ -7,6 +6,7 @@ import {
 } from './ui/accordion'
 import { Button } from './ui/button'
 import { useNavigate } from '@tanstack/react-router'
+import { DictionarySenseItem } from './dictionary-sense-item'
 
 interface Props {
   index: number
@@ -34,17 +34,7 @@ export const EntryAccordionItem = ({ index, entry }: Props) => {
       <AccordionContent className="space-y-8">
         <div className="space-y-5">
           {entry.senses.map((sense, senseIndex) => (
-            <div key={senseIndex}>
-              <p>- {sense.definition}</p>
-              {sense.examples.length > 0 && (
-                <div className="flex items-center space-x-3">
-                  <p className="italic">{sense.examples[0]}</p>
-                  <Button variant={'outline'} size={'icon-sm'}>
-                    <Languages />
-                  </Button>
-                </div>
-              )}
-            </div>
+            <DictionarySenseItem key={senseIndex} {...sense} />
           ))}
         </div>
 
@@ -55,10 +45,10 @@ export const EntryAccordionItem = ({ index, entry }: Props) => {
                 sinonimos
               </p>
               <div className="space-x-2">
-                {entry.synonyms.map((value) => (
+                {entry.synonyms.map((value, syIndex) => (
                   <Button
                     variant={'secondary'}
-                    key={value}
+                    key={syIndex}
                     size={'xs'}
                     onClick={() => onSearchBySynonymAntonym(value)}
                   >
@@ -75,10 +65,10 @@ export const EntryAccordionItem = ({ index, entry }: Props) => {
                 antonimos
               </p>
               <div className="space-x-2">
-                {entry.antonyms.map((value) => (
+                {entry.antonyms.map((value, anIndex) => (
                   <Button
                     variant={'secondary'}
-                    key={value}
+                    key={anIndex}
                     size={'xs'}
                     onClick={() => onSearchBySynonymAntonym(value)}
                   >

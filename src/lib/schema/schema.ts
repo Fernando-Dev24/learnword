@@ -36,6 +36,7 @@ export interface Sense {
   definition: string
   tags: string[]
   examples: string[]
+  examplesEs?: string
   quotes: Quote[]
   synonyms: string[]
   antonyms: string[]
@@ -61,4 +62,8 @@ export interface Source {
 export interface License {
   name: string
   url: string
+}
+
+export interface LibreTranslate {
+  translatedText: string
 }

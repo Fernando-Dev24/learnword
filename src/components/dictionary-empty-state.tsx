@@ -7,6 +7,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from './ui/empty'
+import { useNavigate } from '@tanstack/react-router'
 
 const TEST_WORDS = [
   'run',
@@ -22,6 +23,18 @@ const TEST_WORDS = [
 ]
 
 export const DictionaryEmptyState = () => {
+  const navigate = useNavigate()
+
+  const onSearchWord = (word: string) => {
+    navigate({
+      to: '/',
+      replace: true,
+      search: {
+        word,
+      },
+    })
+  }
+
   return (
     <div className="space-y-5">
       <div className="space-y-1">
@@ -35,6 +48,7 @@ export const DictionaryEmptyState = () => {
               variant={'secondary'}
               className="capitalize"
               size={'xs'}
+              onClick={() => onSearchWord(word)}
             >
               {word}
             </Button>
