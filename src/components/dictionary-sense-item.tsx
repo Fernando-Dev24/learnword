@@ -1,36 +1,28 @@
-import type { LibreTranslate, Sense } from '#/lib/schema'
-import { useState } from 'react'
+import type { Sense } from '#/lib/schema'
+import { useState, useTransition } from 'react'
 import { Button } from './ui/button'
-import { Languages } from 'lucide-react'
-
-const LIBRE_TRANSLATE_ENDPOINT = 'https://libretranslate.com/translate'
+import { Eye, Languages } from 'lucide-react'
+import { onTranslateExample } from '#/core/services'
+import { toast } from 'sonner'
+import { Spinner } from './ui/spinner'
 
 export const DictionarySenseItem = (sense: Sense) => {
-  const [viewOriginal, setViewOriginal] = useState(true)
-  const [translatedExample, setTranslatedExample] = useState('')
+  const [translation, setTranslation] = useState<string | null>(null)
+  const [isPending, startTransition] = useTransition()
 
-  const onTranslateExample = async (example: string, target: string = 'es') => {
-    const res = await fetch(LIBRE_TRANSLATE_ENDPOINT, {
-      method: 'POST',
-      body: JSON.stringify({
-        q: example,
-        source: 'en',
-        target,
-      }),
-      headers: { 'Content-Type': 'application/json' },
+  const handleTranslate = (example: string) => {
+    startTransition(async () => {
+      const { success, text } = await onTranslateExample({
+        data: { text: example },
+      })
+
+      if (!success || !text) {
+        toast.error('Error al traducir el ejemplo')
+        return
+      }
+
+      setTranslation(text)
     })
-
-    if (!res.ok) {
-      setTranslatedExample('Error al traducir')
-      setViewOriginal(false)
-    }
-
-    const respData = (await res.json()) as LibreTranslate
-
-    console.log({ respData })
-
-    setTranslatedExample(respData.translatedText)
-    setViewOriginal(false)
   }
 
   return (
@@ -38,19 +30,29 @@ export const DictionarySenseItem = (sense: Sense) => {
       <p>- {sense.definition}</p>
       {sense.examples.length > 0 && (
         <div className="flex items-center space-x-3">
-          {viewOriginal ? (
-            <p className="italic">{sense.examples[0]}</p>
+          {translation ? (
+            <p className="italic">{translation}</p>
           ) : (
-            <p className="italic">{translatedExample}</p>
+            <p className="italic">{sense.examples[0]}</p>
           )}
 
-          <Button
-            variant={'outline'}
-            size={'icon-sm'}
-            onClick={() => onTranslateExample(sense.examples[0])}
-          >
-            <Languages />
-          </Button>
+          {translation ? (
+            <Button
+              variant={'outline'}
+              size={'icon-sm'}
+              onClick={() => setTranslation(null)}
+            >
+              <Eye />
+            </Button>
+          ) : (
+            <Button
+              variant={'outline'}
+              size={'icon-sm'}
+              onClick={() => handleTranslate(sense.examples[0])}
+            >
+              {isPending ? <Spinner /> : <Languages />}
+            </Button>
+          )}
         </div>
       )}
     </div>

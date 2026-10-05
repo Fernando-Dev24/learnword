@@ -2,6 +2,7 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import { ThemeProvider } from '#/components/theme-provider/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
 
 import App from '#/pages/app'
 import appCss from '../styles.css?url'
@@ -42,6 +43,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider defaultTheme="system" storageKey="theme">
           <App>{children}</App>
+          <Toaster richColors={true} />
         </ThemeProvider>
         <TanStackDevtools
           config={{

@@ -63,7 +63,3 @@ export interface License {
   name: string
   url: string
 }
-
-export interface LibreTranslate {
-  translatedText: string
-}
