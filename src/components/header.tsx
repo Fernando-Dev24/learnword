@@ -27,8 +27,8 @@ export const Header = () => {
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target
-    debounceSearch(value)
-    setInputValue(value)
+    debounceSearch(value.toLowerCase())
+    setInputValue(value.toLowerCase())
   }
 
   return (

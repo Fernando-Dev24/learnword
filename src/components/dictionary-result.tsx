@@ -11,7 +11,7 @@ export const DictionaryResult = ({ data }: { data: FreeDictionaryAPI }) => {
   const firstEntryValue = `item-${0}`
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-8 animate-fade-in-up">
       <article>
         <h2 className="font-semibold text-6xl">{data.word}</h2>
         <p className="text-muted-foreground mb-3">{phonetic}</p>

@@ -48,6 +48,7 @@ export const DictionarySenseItem = (sense: Sense) => {
             <Button
               variant={'outline'}
               size={'icon-sm'}
+              disabled={isPending}
               onClick={() => handleTranslate(sense.examples[0])}
             >
               {isPending ? <Spinner /> : <Languages />}

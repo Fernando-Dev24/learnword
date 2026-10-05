@@ -44,7 +44,7 @@ export const EntryAccordionItem = ({ index, entry }: Props) => {
               <p className="text-xs uppercase text-muted-foreground">
                 sinonimos
               </p>
-              <div className="space-x-2">
+              <div className="space-x-2 space-y-2">
                 {entry.synonyms.map((value, syIndex) => (
                   <Button
                     variant={'secondary'}
@@ -64,7 +64,7 @@ export const EntryAccordionItem = ({ index, entry }: Props) => {
               <p className="text-xs uppercase text-muted-foreground">
                 antonimos
               </p>
-              <div className="space-x-2">
+              <div className="space-x-2 space-y-2">
                 {entry.antonyms.map((value, anIndex) => (
                   <Button
                     variant={'secondary'}

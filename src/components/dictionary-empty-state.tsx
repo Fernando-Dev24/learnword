@@ -36,12 +36,12 @@ export const DictionaryEmptyState = () => {
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 animate-fade-in-up">
       <div className="space-y-1">
         <p className="uppercase tracking-wider text-muted-foreground text-xs">
           Prueba con
         </p>
-        <div className="space-x-2">
+        <div className="space-x-2 space-y-2">
           {TEST_WORDS.map((word, index) => (
             <Button
               key={index}
@@ -67,11 +67,6 @@ export const DictionaryEmptyState = () => {
             ejemplos en español e inglés.
           </EmptyDescription>
         </EmptyHeader>
-        {/* <EmptyContent>
-          <Button variant="outline" size="sm">
-            Upload Files
-          </Button>
-        </EmptyContent> */}
       </Empty>
     </div>
   )
